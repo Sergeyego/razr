@@ -127,7 +127,7 @@ void Press::readReady()
             emit err("123");
         }
         //qDebug()<<unit.value(1);
-        double D=350.0-((double)unit.value(1))/100.0;
+        double D=((double)unit.value(1))/100.0;
         if (L!=D){
             emit newL(QString::number(D,'f',2));
             emit newL(D);
