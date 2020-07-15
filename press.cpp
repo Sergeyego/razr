@@ -51,7 +51,7 @@ double Press::getL()
 void Press::work()
 {
     if (modbusDevice->state()==QModbusDevice::ConnectedState) {
-        QModbusDataUnit writeRequest(QModbusDataUnit::HoldingRegisters,0,1);
+        QModbusDataUnit writeRequest(QModbusDataUnit::HoldingRegisters,512,1);
         qint16 cmd=0;
         if (timerStop->value()) cmd+=1;
         if (timerDown->value()) cmd+=2;
@@ -64,7 +64,7 @@ void Press::work()
 
         modbusDevice->sendWriteRequest(writeRequest,1);
 
-        if (auto reply = modbusDevice->sendReadRequest(QModbusDataUnit(QModbusDataUnit::HoldingRegisters,1,2),1)){
+        if (auto reply = modbusDevice->sendReadRequest(QModbusDataUnit(QModbusDataUnit::HoldingRegisters,513,2),1)){
             if (!reply->isFinished()) {
                 connect(reply, &QModbusReply::finished, this, &Press::readReady);
             } else {
